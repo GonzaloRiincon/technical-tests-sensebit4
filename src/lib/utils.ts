@@ -7,7 +7,6 @@ export const capitalize = (word) => {
 	return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
-
 //Observer del scroll infinito
 export const setupObserver = (bottomElement: Element, selectedType: string): void => {
 	observer = new IntersectionObserver(
