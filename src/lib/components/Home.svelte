@@ -17,7 +17,7 @@
 
 </script>
 
-<h1 class="text-3xl font-bold mb-6 text-center">Pokédex</h1>
+
 {#if $selectedType}
   <div class="flex items-center justify-between mb-6 gap-6"> 
     <div class="relative w-1/2"> 
@@ -36,6 +36,8 @@
       {#if $comparisonMode}🔄 Cancelar Comparación{:else}📊 Comparar Pokémons{/if}
     </button>
   </div>
+{:else}
+  <h1 class="text-3xl font-bold mb-6 text-center">Pokédex</h1>
 {/if}
 
 <section class="mb-8 flex justify-between items-center">
