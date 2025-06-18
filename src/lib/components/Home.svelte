@@ -25,7 +25,7 @@
       type="text" 
       bind:value={$searchQuery} 
       placeholder="Buscar Pokémon..." 
-      class="px-3 py-3 w-full border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 pl-10 h-12"
+      class="px-3 py-3 w-full rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-red-500 pl-10 h-12"
       >
       <svg class="absolute left-3 top-2.5 w-5 h-5 text-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35m0 0a7 7 0 10-9.9-9.9 7 7 0 009.9 9.9z"/>
@@ -36,22 +36,16 @@
       {#if $comparisonMode}🔄 Cancelar Comparación{:else}📊 Comparar Pokémons{/if}
     </button>
   </div>
-{:else}
-  <h1 class="text-3xl font-bold mb-6 text-center">Pokédex</h1>
-{/if}
-
-<section class="mb-8 flex justify-between items-center">
-    <select id="type-select" bind:value={$selectedType} on:change={() => fetchByType($selectedType)} class="p-2 border rounded text-black">
+  <section class="mb-8 flex justify-between items-center">
+    <select id="type-select" bind:value={$selectedType} on:change={() => fetchByType($selectedType)} class="p-2 rounded text-black">
       <option value="">-- Selecciona un tipo --</option>
       {#each $types as type}
         <option value={type.name}>{typeTranslations[type.name] || capitalize(type.name)}</option>
       {/each}
     </select>
-</section>
-
-{#if $selectedType}
+  </section>
   <section class="mb-6 flex items-center gap-4">
-    <div class="flex items-center border rounded-lg p-2 bg-gray-100">
+    <div class="flex items-center rounded-lg p-2 bg-gray-100">
       <label for="height-filter" class="font-bold">Altura mínima:   </label>
       <input id="height-filter" type="number" bind:value={$filterHeight} 
       class="bg-transparent border-none outline-none text-black w-16 text-center" 
@@ -63,20 +57,39 @@
     </button>
   </section>
 
-{#if $filteredPokemonList.length > 0}
+  {#if $filteredPokemonList.length > 0}
   <PokemonList pokemonList={$filteredPokemonList} />
   <div id="bottom-element" class="h-1 w-full"></div>
-{:else if $imagesLoading}
+  {:else if $imagesLoading}
   <LoadingSpinner />
-{:else}
+  {:else}
   <p class="text-center mt-12 text-lg font-bold">No hay Pokémon que cumplan el filtro.</p>
-{/if}
-{/if}
+  {/if}
 
+{:else}
+<div class="text-center mb-8 bg-black/50 backdrop-blur-md p-6 rounded-lg shadow-lg">
+  <h1 class="text-6xl font-extrabold text-yellow-400">
+    ¡Bienvenido a la Pokédex!
+  </h1>
+  <p class="text-lg text-blue-500 mt-2 font-semibold">Explora y descubre los Pokémon por tipo.</p>
+</div>
+<section class="flex flex-col items-center mb-8">
+  <select id="type-select" bind:value={$selectedType} on:change={() => fetchByType($selectedType)} 
+    class="p-3 border-2 border-yellow-400 rounded-xl text-black text-lg font-semibold bg-white shadow-md hover:shadow-lg transition">
+    <option value="">-- Selecciona un tipo --</option>
+    {#each $types as type}
+      <option value={type.name}>{typeTranslations[type.name] || capitalize(type.name)}</option>
+    {/each}
+  </select>
+</section>
+{/if}
 
   <style>
     button {
       background-color: white;
       color: black;
+    }
+    h1 {
+    font-family: 'Luckiest Guy', cursive;
     }
   </style>
