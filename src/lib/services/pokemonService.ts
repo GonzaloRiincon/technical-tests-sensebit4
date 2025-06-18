@@ -32,7 +32,7 @@ export const fetchByType = async (selectedType: string): Promise<void> => {
 
         return;
     }
-
+    offset += limit
 
     const newPokemonArray = await Promise.all(
         data.pokemon.slice(0, 20).map(async (p) => {
@@ -84,7 +84,6 @@ export const fetchMoveComparisonData = async (moves) => {
             const res = await fetch(`https://pokeapi.co/api/v2/move/${move}`);
             const data = await res.json();
 
-            // 🔹 Obtener los tipos de los Pokémon que aprenden el movimiento de forma concurrente
             const typePromises = data.learned_by_pokemon.map(async (pokemon) => {
                 const typeRes = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.name}`);
                 const typeData = await typeRes.json();
@@ -93,7 +92,6 @@ export const fetchMoveComparisonData = async (moves) => {
 
             const types = await Promise.all(typePromises);
 
-            // 🔹 Contar cuántos Pokémon de cada tipo pueden aprender el movimiento
             return types.reduce((typeCount, primaryType) => {
                 typeCount[primaryType] = (typeCount[primaryType] || 0) + 1;
                 return typeCount;
@@ -160,6 +158,9 @@ export const loadMorePokemon = async (selectedType: string): Promise<void> => {
 
     const res = await fetch(`https://pokeapi.co/api/v2/type/${selectedType}`);
     const data = await res.json();
+
+    const pokemonSubset = data.pokemon.slice(offset, offset + limit);
+    if (pokemonSubset.length === 0) return;
 
     const newPokemonArray = await Promise.all(
         data.pokemon.slice(offset, offset + limit).map(async (p) => {
