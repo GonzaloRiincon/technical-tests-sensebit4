@@ -1,9 +1,9 @@
 <script>
   export let pokemon;
-  import { imagesLoading, loadedImagesCount,  totalImagesCount, comparisonMode, selectedPokemons } from '../store';
+  import { imagesLoading, loadedImagesCount,  totalImagesCount, comparisonMode, selectedPokemons } from '../../store';
   import { onMount } from 'svelte';
   import { createEventDispatcher } from 'svelte';
-    import {  goToComparison, goToDetails } from '../utils';
+    import {  goToComparison, goToDetails } from '../../utils';
 
   const dispatch = createEventDispatcher();
 

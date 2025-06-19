@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Pokemon } from '../store.ts';
+  import type { Pokemon } from '../../store.js';
   import PokemonCard from './PokemonCard.svelte';
 
   export let pokemonList: Pokemon[]; 

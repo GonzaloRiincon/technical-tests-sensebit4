@@ -1,4 +1,4 @@
-import { pokemonList, selectedPokemon, activeScreen, selectedPokemons, selectedMoves } from '../store';
+import { pokemonList, selectedPokemon } from '../store';
 import { setupObserver } from '../utils';
 
 
